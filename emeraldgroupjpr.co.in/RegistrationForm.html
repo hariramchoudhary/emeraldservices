@@ -10,7 +10,65 @@
 <head><title>
 	Emerald Maritime Services
 </title><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link href="css/main.css" rel="stylesheet" type="text/css" /><link rel="stylesheet" href="../code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-  
+<script src="https://smtpjs.com/v3/smtp.js">
+
+</script>
+<script>
+   var FormAttachments=[];
+    function uploadFileToServerTenth()
+{
+  var tenthFile = event.srcElement.files[0];
+   var reader = new FileReader();
+   reader.readAsBinaryString(tenthFile);
+   reader.onload = function () {
+       var tenthdataUri = "data:" + tenthFile.type + ";base64," + btoa(reader.result);
+       FormAttachments.push({	name : tenthFile.name,
+          		data : tenthdataUri
+                  });
+      };
+   reader.onerror = function() {
+       console.log('there are some problems');
+   };
+}
+
+
+function uploadFileToServerAdhar()
+{
+  var adharFile = event.srcElement.files[0];
+   var reader = new FileReader();
+   reader.readAsBinaryString(adharFile);
+   reader.onload = function () {
+       var adhardataUri = "data:" + adharFile.type + ";base64," + btoa(reader.result);
+         FormAttachments.push({name : adharFile.name, data : adhardataUri});
+     
+   };
+   reader.onerror = function() {
+       console.log('there are some problems');
+   };
+}
+
+function emailSend() {
+
+    var jobValue = $("input[name='rdbpost']:checked").val();
+          
+    var html='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head> <title>Christmas Email template</title> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1.0 "> <meta name="format-detection" content="telephone=no"> <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet"> <style type="text/css"> body { margin: 0 !important; padding: 0 !important; -webkit-text-size-adjust: 100% !important; -ms-text-size-adjust: 100% !important; -webkit-font-smoothing: antialiased !important; } img { border: 0 !important; outline: none !important; } p { Margin: 0px !important; Padding: 0px !important; } table { border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px; } td, a, span { border-collapse: collapse; mso-line-height-rule: exactly; } .ExternalClass * { line-height: 100%; } .em_defaultlink a { color: inherit !important; text-decoration: none !important; } span.MsoHyperlink { mso-style-priority: 99; color: inherit; } span.MsoHyperlinkFollowed { mso-style-priority: 99; color: inherit; } @media only screen and (min-width:481px) and (max-width:699px) { .em_main_table { width: 100% !important; } .em_wrapper { width: 100% !important; } .em_hide { display: none !important; } .em_img { width: 100% !important; height: auto !important; } .em_h20 { height: 20px !important; } .em_padd { padding: 20px 10px !important; } } @media screen and (max-width: 480px) { .em_main_table { width: 100% !important; } .em_wrapper { width: 100% !important; } .em_hide { display: none !important; } .em_img { width: 100% !important; height: auto !important; } .em_h20 { height: 20px !important; } .em_padd { padding: 20px 10px !important; } .em_text1 { font-size: 16px !important; line-height: 24px !important; } u+.em_body .em_full_wrap { width: 100% !important; width: 100vw !important; } label { display: inline-block; max-width: 100%; margin-bottom: 5px; font-weight: 700; } } </style></head><body class="em_body" style="margin:0px; padding:0px;" bgcolor="#efefef"> <table class="em_full_wrap" valign="top" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#efefef" align="center"> <tbody> <tr> <td valign="top" align="center"> <table class="em_main_table" style="width:100%"  cellspacing="0" cellpadding="0" border="0" align="center"> <tbody> <tr> <td style="padding:15px;" class="em_padd" valign="top" bgcolor="#f6f7f8" align="center"> <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center"> <tbody> <tr> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:20px; line-height:15px; color:#0d1121;" valign="top" align="center">Registration Form </td> </tr> </tbody> </table> </td> </tr> <tr> <td style="padding: 35px 12px 35px;" class="em_padd" valign="top" bgcolor="#fff" align="center"> <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center"> <tbody id="content"> <tr> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>Name:</lable> '+$('#txtname').val()+' </td> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>Father Name : '+$('#txtfname').val()+'</lable> </td> </tr> <tr> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>Mother Name : '+$('#txtmothername').val()+'</lable>  </td> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>DOB : '+$('#txtdob').val()+'</lable> </td> </tr> <tr> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>Mobile No : '+$('#txtmob').val()+'</lable>  </td> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>Alternate Mobile : '+$('#txtaltermob').val()+'</lable>  </td> </tr> <tr> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>Email :  '+$('#txtemail').val()+'</lable> </td> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>Address : '+$('#txtaddress').val()+'</lable> </td> </tr> <tr> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>Tehsil : '+$('#txttehsil').val()+'</lable>  </td> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>District : '+$('#txtdistrict').val()+'</lable>  </td> </tr> <tr> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>State : '+$('#txtstate').val()+'</lable>  </td> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>Pincode : '+$('#txtpincode').val()+'</lable>  </td> </tr> <tr> <td style="font-family:"Open Sans", Arial, sans-serif; font-size:16px; line-height:30px; color:#333;" valign="top"> <lable>Post applied for : '+jobValue+'</lable>  </td> </tr> <tr> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table></body></html>';
+    Email.send({
+        Host : "smtp.elasticemail.com",
+        Username : "hrchoudhary34@gmail.com",
+          Password : "35975947-c835-413b-a6c4-e0884212c5fe",
+           To : 'hrchoudhary34@gmail.com',
+           From : "hrchoudhary34@gmail.com",
+           Subject : ''+$('#txtname').val()+' Form Details',
+           Body : html,
+           Attachments : FormAttachments
+       }).then(function(message){
+        if(message==='OK'){
+       }
+       }
+         
+       );
+}
+</script>
     <script src="../code.jquery.com/jquery-1.12.4.js"></script>
     <script src="../code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="../maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
@@ -185,8 +243,8 @@
                 <a href="Default.html">    <img src="img/Logo1.png" alt="Brandi" class="log" /></a>
                 </div>
                 <div class="col-sm-4 one" id="onln">
-                    <i class="fa fa-phone" aria-hidden="true" style="font-size: x-large; padding: 5px;"></i>Tel No. : 9024158187/ 9672958958<br />
-                    <i class="fa fa-envelope" aria-hidden="true" style="font-size: x-large; padding: 5px;"></i>emajprtraining@gmail.com , emeraldgroupjpr.co.in
+                    <i class="fa fa-phone" aria-hidden="true" style="font-size: x-large; padding: 5px;"></i>Tel No. : 7357535341 / 7357275341<br />
+                    <i class="fa fa-envelope" aria-hidden="true" style="font-size: x-large; padding: 5px;"></i>emeraldnavyservices@gmail.com 
                     <br />
                     <br />
                     <br />
@@ -204,7 +262,7 @@
         </div>
     </div>
     <fieldset class="form-layout">
-        <form method="post" action="http://emeraldgroupjpr.co.in/RegistrationForm.aspx" id="form1" enctype="multipart/form-data">
+        <form method="post"  id="form1" enctype="multipart/form-data">
 <div class="aspNetHidden">
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="Jp/qoFob60OToMHWTNRf+iNp39toe9Y598bV05Xk5YQRJZMLLIC/LD7KRhieU9NJKID6NOkGR50ezsJiqM50pe/d09PD0+hhoT2vxbd6uwAvzwavO0cgzv6wvBSuzGQ8YRXTeTe+dNvztmpIjsEyVA==" />
 </div>
@@ -378,45 +436,25 @@
                                 10th marksheet :-
                             </label>
                             <div class="col-xs-6">
-                                <input type="file" name="filetenmarksheet" id="filetenmarksheet" />
+                                <input type="file" name="filetenmarksheet" id="filetenmarksheet" onchange="uploadFileToServerTenth()" />
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group row">
-                            <label for="name-input" class="col-xs-4 col-form-label">
-                                12th marksheet :-
-                            </label>
-                            <div class="col-xs-6">
-                                <input type="file" name="file12marksheet" id="file12marksheet" />
+                            <div class="form-group row">
+                                <label for="name-input" class="col-xs-4 col-form-label">
+                                    Adhar Card :-
+                                </label>
+                                <div class="col-xs-6">
+                                    <input type="file" name="fileadhar" id="fileadhar" onchange="uploadFileToServerAdhar()"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    
                 </div>
-                <div class="col-lg-12">
-                    <div class="col-lg-6">
-                        <div class="form-group row">
-                            <label for="name-input" class="col-xs-4 col-form-label">
-                                Adhar Card :-
-                            </label>
-                            <div class="col-xs-6">
-                                <input type="file" name="fileadhar" id="fileadhar" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group row">
-                            <label for="name-input" class="col-xs-4 col-form-label">
-                                Photo :-
-                            </label>
-                            <div class="col-xs-6">
-                                <input type="file" name="filephoto" id="filephoto" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          
                 <div class="col-lg-12 text-center">
-                    <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                    <input  name="btnsubmit" value="Submit"  onclick="emailSend()" class="btn btn-primary" />
                 </div>
             </div>
         </form>
@@ -440,13 +478,13 @@
                         <h6>Email
                         </h6>
                         <p>
-                            emajprtraining@gmail.com
+                            emeraldnavyservices@gmail.com
                         </p>
                         <h6>website
                         </h6>
                         <a href="#home">
                             <p>
-                                emeraldgroupjpr.co.in
+                            emeraldmaritime.in
                             </p>
                         </a>
                     </div>
@@ -476,15 +514,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="copyright text-center">
-                        Copyright © 2017. All rights reserved. Designed
-                        & Developed by <a href="http://heaventechnosystem.com/hts/" target="_blank">Heaven
-                            Techno System</a>
-                    </p>
-                </div>
-            </div>
+       
         </div>
     </footer>
 </body>
